@@ -19,7 +19,7 @@ public class Server {
 
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Server avviato sulla porta " + port);
+
         } catch (IOException e) {
             System.err.println("La porta " + port + " non è stata trovata o è occupata");
         }
