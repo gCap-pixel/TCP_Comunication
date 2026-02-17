@@ -30,11 +30,17 @@ public class Client {
             OutputStream outputStream =  socket.getOutputStream();
             PrintWriter pw = new PrintWriter(outputStream);
             pw.print("ciao come va?");
-            pw.close();
+            pw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public void ricevi(){
+
+    }
+
+
     public void chiudi(){
         try {
             socket.close();

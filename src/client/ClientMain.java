@@ -1,11 +1,15 @@
 package client;
 
 public class ClientMain {
+    private static String stringa;
+
     public static void main(String[] args) {
         Client client = new Client("gab");
         client.connetti();
-        client.invia();
-
+        while(!stringa.equals("stop")) {
+            client.invia();
+            client.ricevi();
+        }
     }
 
 }
