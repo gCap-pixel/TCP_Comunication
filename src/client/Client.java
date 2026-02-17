@@ -10,26 +10,27 @@ public class Client {
     private  String colore;
     private Socket socket;
     private String nomeServer;
+    private int port = 5000;
 
     public Client(String nome) {
         this.nome = nome;
+        this.port = 5000;
     }
 
     public void connetti(){
         try  {
-            socket = new Socket("localhost", 5000);
+            socket = new Socket("localhost", port);
         }
         catch(Exception e){
             System.out.println("errore il server non risponde");
         }
     }
     public void invia(){
-
         try {
             OutputStream outputStream =  socket.getOutputStream();
             PrintWriter pw = new PrintWriter(outputStream);
             pw.print("ciao come va?");
-            pw.flush();
+            pw.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
