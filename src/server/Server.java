@@ -15,7 +15,7 @@ public class Server {
         try {
             serverSocket = new ServerSocket(port);
         } catch (IOException e) {
-            System.err.println("Errore: porta " + port + " occupata.");
+            System.err.println("Errore porta " + port);
         }
     }
 
@@ -32,23 +32,18 @@ public class Server {
         try {
             InputStream inputStream = clientSocket.getInputStream();
             BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-
-            // CORREZIONE: rimosso "String" per aggiornare l'attributo di classe
             testo = br.readLine();
-
             System.out.println("Testo ricevuto: " + testo);
         } catch (IOException e) {
             testo = null;
         }
     }
 
-    public void scrivi() {
+    public void scrivi(String messaggio) {
         try {
             OutputStream outputStream = clientSocket.getOutputStream();
             PrintWriter pw = new PrintWriter(outputStream);
-
-            // USO DI \n COME RICHIESTO
-            pw.print("bene, tu?\n");
+            pw.print(messaggio + "\n");
             pw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
