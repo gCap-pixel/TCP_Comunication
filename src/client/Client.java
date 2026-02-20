@@ -1,49 +1,60 @@
 package client;
 
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private  String nome;
-    private  String colore;
     private Socket socket;
-    private String nomeServer;
-    private int port = 5000;
+    private int port;
+    private String testo;
 
     public Client(String nome) {
-        this.nome = nome;
-        this.port = 5000;
+        this.port = 1255;
+        this.testo = "true";
     }
 
-    public void connetti(){
-        try  {
+    public void connetti() {
+        try {
             socket = new Socket("localhost", port);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("errore il server non risponde");
         }
     }
-    public void invia(){
+
+    public void invia(String messaggio) {
         try {
-            OutputStream outputStream =  socket.getOutputStream();
+            OutputStream outputStream = socket.getOutputStream();
             PrintWriter pw = new PrintWriter(outputStream);
-            pw.print("ciao come va?");
+
+            // USO DI \n COME RICHIESTO
+            pw.print(messaggio + "\n");
             pw.flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void ricevi(){
+    public void ricevi() {
+        try {
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
 
+            // CORREZIONE: rimosso "String" per aggiornare l'attributo di classe
+            testo = br.readLine();
+
+            System.out.println("il server dice: " + testo);
+        } catch (IOException e) {
+            testo = null;
+        }
     }
 
+    public String getTesto() {
+        return testo;
+    }
 
-    public void chiudi(){
+    public void chiudi() {
         try {
-            socket.close();
+            if (socket != null) socket.close();
         } catch (IOException e) {
             System.out.println("errore nella chiusura");
         }
