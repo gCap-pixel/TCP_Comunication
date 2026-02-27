@@ -5,7 +5,7 @@ Un'implementazione semplice per la comunicazione di rete tramite protocollo TCP 
 
 **Installazione e Compilazione:**
 
-Clonare la repository: git clone https://github.com.
+Clonare la repository: git clone https://github.com/gCap-pixel/TCP_Comunication.
 
 
 **Utilizzo:**
